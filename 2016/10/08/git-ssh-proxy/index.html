@@ -4,19 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>IceNature&#39;s Blog</title>
+    <title>对 Git 使用 SSH 代理 | IceNature&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IceNature">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="IceNature's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。
+在 ~/.ssh/config 加入以下内容：  
+HTTP 代理
+Host github.com
+ProxyCommand /bin/connect.exe -H 127.0.0.1:1080 %h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对 Git 使用 SSH 代理">
+<meta property="og:url" content="http://yoursite.com/2016/10/08/git-ssh-proxy/index.html">
 <meta property="og:site_name" content="IceNature's Blog">
+<meta property="og:description" content="Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。
+在 ~/.ssh/config 加入以下内容：  
+HTTP 代理
+Host github.com
+ProxyCommand /bin/connect.exe -H 127.0.0.1:1080 %h">
+<meta property="og:updated_time" content="2016-10-08T04:12:36.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IceNature's Blog">
+<meta name="twitter:title" content="对 Git 使用 SSH 代理">
+<meta name="twitter:description" content="Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。
+在 ~/.ssh/config 加入以下内容：  
+HTTP 代理
+Host github.com
+ProxyCommand /bin/connect.exe -H 127.0.0.1:1080 %h">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -70,12 +86,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2016/10/08/git-ssh-proxy/" title="对 Git 使用 SSH 代理" itemprop="url">对 Git 使用 SSH 代理</a>
@@ -89,9 +103,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。</p>
 <p>在 <code>~/.ssh/config</code> 加入以下内容：  </p>
 <p><strong>HTTP 代理</strong></p>
 <pre><code>Host github.com
@@ -100,14 +121,9 @@ ProxyCommand /bin/connect.exe -H 127.0.0.1:1080 %h %p
 <pre><code>Host github.com
 ProxyCommand /bin/connect.exe -S 127.0.0.1:1080 %h %p    
 </code></pre><p>上面两条将会对 Github 启用 <code>127.0.0.1:1080</code> 的代理。如果想对其他仓库使用代理只需替换 <code>github.com</code>  为对应的域名即可。<br>次方法对 Windows 同样适用。按照上面的格式将代理写入 <code>%HOMEPATH%\.ssh\config</code> 就可以了。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -120,98 +136,43 @@ ProxyCommand /bin/connect.exe -S 127.0.0.1:1080 %h %p
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/2016/10/08/git-ssh-proxy/" data-title="对 Git 使用 SSH 代理 | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/08/build-vim-on-windows/" title="在 windows 上编译 Vim" itemprop="url">在 windows 上编译 Vim</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="IceNature" target="_blank" itemprop="author">IceNature</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-08T02:13:19.000Z" itemprop="datePublished"> 发表于 2016-10-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>vim.org 上的 Windows GVim 不仅支持的特性太少，版本较老，而且不支持非等宽字体。像 powerline，airline 这种需要非等宽字体支持的插件无法显示完整的效果。所以需要通过源码编译符合我们要求的 GVim。  </p>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
-<li>Visual Studio</li>
-<li>Windows SDK</li>
-<li>Vim 源代码（<a href="https://github.com/vim/vim/releases" target="_blank" rel="external">GitHub Release</a>）</li>
-</ul>
-<h2 id="非等宽字体支持"><a href="#非等宽字体支持" class="headerlink" title="非等宽字体支持"></a>非等宽字体支持</h2><p>进入源码目录下的 <code>src/</code> 目录，找到 <code>Make_mvc.mak</code> 文件并打开。在 <code>370</code> 行的 <code>CFLAGS=</code> 后添加参数 <code>-DFEAT_PROPORTIONAL_FONTS</code> 使编译出的 Vim 支持非等宽字体。添加后效果如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CFLAGS = -DFEAT_PROPORTIONAL_FONTS -c /W3 /nologo <span class="variable">$(CVARS)</span> -I. -Iproto -DHAVE_PATHDEF -DWIN32 \</div><div class="line">        $(CSCOPE_DEFS) $(NETBEANS_DEFS) $(CHANNEL_DEFS) \</div><div class="line">        $(NBDEBUG_DEFS) $(XPM_DEFS) \</div><div class="line">        $(DEFINES) -DWINVER=$(WINVER) -D_WIN32_WINNT=$(WINVER) \</div><div class="line">        /Fo$(OUTDIR)/</div></pre></td></tr></table></figure>
-<p>当然也可以通过注释源码的方式实现支持非等宽，只是相对于修改 Makefile 修改源码较为麻烦。</p>
-<h2 id="DirectWrite-抗锯齿"><a href="#DirectWrite-抗锯齿" class="headerlink" title="DirectWrite 抗锯齿"></a>DirectWrite 抗锯齿</h2><p>GVim 在 Win 下的字体渲染效果较差，没有 Mac 和 Linux 的 GVim 看起来平滑细腻。虽然 Win 下 GVim 支持 DW 抗锯齿，但默认并没有开启。要开启抗锯齿功能不仅需要在编译时增加参数，还需要在 vimrc 中设置。<br>按照 Makefile，编译时提供参数：</p>
-<pre><code>DirectWrite=yes
-</code></pre><p>编译完成后打开 <code>_vimrc</code> 并添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if has(&apos;win32&apos;) || has(&apos;win64&apos;)</div><div class="line">    set renderoptions=type:directx,renmode:5</div><div class="line">end</div></pre></td></tr></table></figure>
-<p>重启 Vim 后就可看到字体渲染效果显著提高。<br><strong>注：</strong>此方法会增加 vim 对显卡的需求，在当前屏幕的代码量非常大的时候可能会降低 vim 的翻页速度。</p>
-<p>附上我使用的 Vim x64 编译参数（支持 python，python3，lua。需要提前安装好对应环境并修改参数中的目录）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmake -f Make_mvc.mak CPU=AMD64 SDK_INCLUDE_DIR=&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include&quot; FEATURES=HUGE GUI=yes DIRECTX=yes OLE=yes MBYTE=yes IME=yes GIME=yes LUA=F:\lua LUA_VER=53 PYTHON=E:\DeveloperTools\Python27 PYTHON_VER=27 PYTHON3=E:\DeveloperTools\Python35 PYTHON3_VER=35 DYNAMIC_PYTHON=yes DYNAMIC_PYTHON3=yes DEBUG=no DYNAMIC_LUA=yes XPM=no</div></pre></td></tr></table></figure>
-<h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
-<li>需要 <code>+Python</code> 特性时，不要使用 Python 2.7.11。此版本会导致 Vim 无法加载 site-packages 导致所有需要 Python 的插件失效。</li>
-<li>使用 Visual Studio 编译 GVim 并添加 <code>+lua</code> 支持时，如果 lua 是从 <a href="http://luabinaries.luaforge.net/" target="_blank" rel="external">LuaForge Lua Binaries project</a> 下载的动态库，需要在 lua 根目录下创建 <code>include</code> 文件夹并将 <code>lua&lt;version&gt;.lib</code> 文件移动到 <code>include</code> 中。否则连接时会提示找不到 lib 文件。</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/vim/">vim</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/10/08/build-vim-on-windows/"  title="在 windows 上编译 Vim">
+ <strong>下一篇：</strong><br/> 
+ <span>在 windows 上编译 Vim
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -338,12 +299,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -404,4 +442,4 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
