@@ -4,41 +4,41 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>在 windows 上编译 Vim | IceNature&#39;s Blog</title>
+    <title>在 Windows 上编译 Vim | IceNature&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IceNature">
     
 
     
-    <meta name="description" content="vim.org 上的 Windows GVim 不仅支持的特性太少，版本较老，而且不支持非等宽字体。像 powerline，airline 这种需要非等宽字体支持的插件无法显示完整的效果。所以需要通过源码编译符合我们要求的 GVim。  
+    <meta name="description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
 工具
 Visual Studio
 Windows SDK
 Vim 源代码（GitHub Release）
 
-非等宽字体支持进入源码目录下的 src/ 目录，找到">
+非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 windows 上编译 Vim">
+<meta property="og:title" content="在 Windows 上编译 Vim">
 <meta property="og:url" content="http://yoursite.com/2016/10/08/build-vim-on-windows/index.html">
 <meta property="og:site_name" content="IceNature's Blog">
-<meta property="og:description" content="vim.org 上的 Windows GVim 不仅支持的特性太少，版本较老，而且不支持非等宽字体。像 powerline，airline 这种需要非等宽字体支持的插件无法显示完整的效果。所以需要通过源码编译符合我们要求的 GVim。  
+<meta property="og:description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
 工具
 Visual Studio
 Windows SDK
 Vim 源代码（GitHub Release）
 
-非等宽字体支持进入源码目录下的 src/ 目录，找到">
-<meta property="og:updated_time" content="2016-10-08T02:29:06.118Z">
+非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
+<meta property="og:updated_time" content="2016-10-08T07:00:25.170Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在 windows 上编译 Vim">
-<meta name="twitter:description" content="vim.org 上的 Windows GVim 不仅支持的特性太少，版本较老，而且不支持非等宽字体。像 powerline，airline 这种需要非等宽字体支持的插件无法显示完整的效果。所以需要通过源码编译符合我们要求的 GVim。  
+<meta name="twitter:title" content="在 Windows 上编译 Vim">
+<meta name="twitter:description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
 工具
 Visual Studio
 Windows SDK
 Vim 源代码（GitHub Release）
 
-非等宽字体支持进入源码目录下的 src/ 目录，找到">
+非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -98,7 +98,7 @@ Vim 源代码（GitHub Release）
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/08/build-vim-on-windows/" title="在 windows 上编译 Vim" itemprop="url">在 windows 上编译 Vim</a>
+      <a href="/2016/10/08/build-vim-on-windows/" title="在 Windows 上编译 Vim" itemprop="url">在 Windows 上编译 Vim</a>
   </h1>
   <p class="article-author">By
        
@@ -114,11 +114,11 @@ Vim 源代码（GitHub Release）
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">4.</span> <span class="toc-text">注</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-number">4.</span> <span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FEATURES"><span class="toc-number">4.1.</span> <span class="toc-text">FEATURES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本支持"><span class="toc-number">4.2.</span> <span class="toc-text">脚本支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">5.</span> <span class="toc-text">注</span></a></li></ol>
 		
 		</div>
 		
-		<p>vim.org 上的 Windows GVim 不仅支持的特性太少，版本较老，而且不支持非等宽字体。像 powerline，airline 这种需要非等宽字体支持的插件无法显示完整的效果。所以需要通过源码编译符合我们要求的 GVim。  </p>
+		<p>官方编译：<a href="https://github.com/vim/vim-win32-installer/releases" target="_blank" rel="external">GitHub vim-win32-install</a> 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。</p>
 <h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
 <li>Visual Studio</li>
 <li>Windows SDK</li>
@@ -132,6 +132,9 @@ Vim 源代码（GitHub Release）
 </code></pre><p>编译完成后打开 <code>_vimrc</code> 并添加：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if has(&apos;win32&apos;) || has(&apos;win64&apos;)</div><div class="line">    set renderoptions=type:directx,renmode:5</div><div class="line">end</div></pre></td></tr></table></figure>
 <p>重启 Vim 后就可看到字体渲染效果显著提高。<br><strong>注：</strong>此方法会增加 vim 对显卡的需求，在当前屏幕的代码量非常大的时候可能会降低 vim 的翻页速度。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>在 Vim 中输入命令 <code>:version</code> 就可以看到当前编译版包含的所有特性：加号为支持，减号为不支持。我们可以在编译打开对应的开关以支持某种功能或关闭开关减少编译得到的二进制文件的大小。</p>
+<h3 id="FEATURES"><a href="#FEATURES" class="headerlink" title="FEATURES"></a>FEATURES</h3><p>除了单个功能的开关之外，Vim 还提供了 <code>FEATURES</code> 选项以快速开启或关闭某一组特性，可选：<code>TINY</code>（体积最小）、<code>SMALL</code>、<code>NORMAL</code>、<code>BIG</code>、<code>HUGE</code>（体积最大）。如果对空间没有特殊要求推荐选择 <code>HUGE</code>。</p>
+<h3 id="脚本支持"><a href="#脚本支持" class="headerlink" title="脚本支持"></a>脚本支持</h3><p>Vim 提供的 VimScript 功能较为简单，运行速度也不快，所以许多插件开发者选择使用其它语言的脚本开发 Vim 插件。在使用这些插件的时候我们的 Vim 需要支持对应的脚本语言。在编译时传入解释器所在目录即可使 Vim 获得对对应语言的支持。DYNAMIC_LANGUAGE 则决定脚本语言模块于何时加载，如果设置为 <code>yes</code> 则只会在第一次运行脚本时加载语言模块，如果设置为 <code>no</code> 则在 Vim 启动时加载语言模块。</p>
 <p>附上我使用的 Vim x64 编译参数（支持 python，python3，lua。需要提前安装好对应环境并修改参数中的目录）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmake -f Make_mvc.mak CPU=AMD64 SDK_INCLUDE_DIR=&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include&quot; FEATURES=HUGE GUI=yes DIRECTX=yes OLE=yes MBYTE=yes IME=yes GIME=yes LUA=F:\lua LUA_VER=53 PYTHON=E:\DeveloperTools\Python27 PYTHON_VER=27 PYTHON3=E:\DeveloperTools\Python35 PYTHON3_VER=35 DYNAMIC_PYTHON=yes DYNAMIC_PYTHON3=yes DEBUG=no DYNAMIC_LUA=yes XPM=no</div></pre></td></tr></table></figure>
 <h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
@@ -146,7 +149,7 @@ Vim 源代码（GitHub Release）
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/vim/">vim</a>
+  <span></span> <a href="/tags/Vim/">Vim</a>
   </div>
 
 </div>
@@ -155,7 +158,7 @@ Vim 源代码（GitHub Release）
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/10/08/build-vim-on-windows/" data-title="在 windows 上编译 Vim | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/10/08/build-vim-on-windows/" data-title="在 Windows 上编译 Vim | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -181,7 +184,7 @@ Vim 源代码（GitHub Release）
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/10/08/build-vim-on-windows/" data-title="在 windows 上编译 Vim" data-url="http://yoursite.com/2016/10/08/build-vim-on-windows/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/08/build-vim-on-windows/" data-title="在 Windows 上编译 Vim" data-url="http://yoursite.com/2016/10/08/build-vim-on-windows/"></div>
 </section>
 
 
@@ -191,7 +194,7 @@ Vim 源代码（GitHub Release）
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">4.</span> <span class="toc-text">注</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-number">4.</span> <span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FEATURES"><span class="toc-number">4.1.</span> <span class="toc-text">FEATURES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本支持"><span class="toc-number">4.2.</span> <span class="toc-text">脚本支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">5.</span> <span class="toc-text">注</span></a></li></ol>
  
   </div>
 
@@ -221,7 +224,11 @@ Vim 源代码（GitHub Release）
 			
 		
 			
-				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+				<li><a href="/tags/C-C/" title="C/C++">C/C++<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vim/" title="Vim">Vim<sup>1</sup></a></li>
 			
 		
 		</ul>
