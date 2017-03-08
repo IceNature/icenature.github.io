@@ -4,41 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>在 Windows 上编译 Vim | IceNature&#39;s Blog</title>
+    <title>flashgot-with-aria2 | IceNature&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IceNature">
     
 
     
-    <meta name="description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
-工具
-Visual Studio
-Windows SDK
-Vim 源代码（GitHub Release）
-
-非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
+    <meta name="description" content="首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 官方文档。  
+准备从 GitHub 下载 aria2rpc 脚本。脚本有 go 和 python 两个版本，本教程以 python 脚本为例需要安装 Python2在 Firefox 打开 FlashGot更多选项——常规——新增，输一个你喜欢的名字，比 如aria2rpc ——点击确定后弹出选择文件对话框。对于 L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 Windows 上编译 Vim">
-<meta property="og:url" content="http://yoursite.com/2016/10/08/build-vim-on-windows/index.html">
+<meta property="og:title" content="flashgot-with-aria2">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/flashgot-with-aria2/index.html">
 <meta property="og:site_name" content="IceNature's Blog">
-<meta property="og:description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
-工具
-Visual Studio
-Windows SDK
-Vim 源代码（GitHub Release）
-
-非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
-<meta property="og:updated_time" content="2016-10-08T07:00:25.170Z">
+<meta property="og:description" content="首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 官方文档。  
+准备从 GitHub 下载 aria2rpc 脚本。脚本有 go 和 python 两个版本，本教程以 python 脚本为例需要安装 Python2在 Firefox 打开 FlashGot更多选项——常规——新增，输一个你喜欢的名字，比 如aria2rpc ——点击确定后弹出选择文件对话框。对于 L">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/flashgot-with-aria2/first.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/flashgot-with-aria2/second.jpg">
+<meta property="og:updated_time" content="2017-03-08T12:29:36.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在 Windows 上编译 Vim">
-<meta name="twitter:description" content="官方编译：GitHub vim-win32-install 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。
-工具
-Visual Studio
-Windows SDK
-Vim 源代码（GitHub Release）
-
-非等宽字体支持进入源码目录下的 src/ 目录，找到 Make_mvc.mak 文件并打开。在 370 行的 CFLAGS= 后添加参数 -DFEAT_PR">
+<meta name="twitter:title" content="flashgot-with-aria2">
+<meta name="twitter:description" content="首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 官方文档。  
+准备从 GitHub 下载 aria2rpc 脚本。脚本有 go 和 python 两个版本，本教程以 python 脚本为例需要安装 Python2在 Firefox 打开 FlashGot更多选项——常规——新增，输一个你喜欢的名字，比 如aria2rpc ——点击确定后弹出选择文件对话框。对于 L">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/08/flashgot-with-aria2/first.jpg">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -98,14 +86,14 @@ Vim 源代码（GitHub Release）
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/08/build-vim-on-windows/" title="在 Windows 上编译 Vim" itemprop="url">在 Windows 上编译 Vim</a>
+      <a href="/2017/03/08/flashgot-with-aria2/" title="flashgot-with-aria2" itemprop="url">flashgot-with-aria2</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="IceNature" target="_blank" itemprop="author">IceNature</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-08T02:13:19.000Z" itemprop="datePublished"> 发表于 2016-10-08</time>
+    <time datetime="2017-03-08T12:12:27.000Z" itemprop="datePublished"> 发表于 2017-03-08</time>
     
   </p>
 </header>
@@ -114,33 +102,27 @@ Vim 源代码（GitHub Release）
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-number">4.</span> <span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FEATURES"><span class="toc-number">4.1.</span> <span class="toc-text">FEATURES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本支持"><span class="toc-number">4.2.</span> <span class="toc-text">脚本支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">5.</span> <span class="toc-text">注</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本参数"><span class="toc-number">2.</span> <span class="toc-text">脚本参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要黑框"><span class="toc-number">3.</span> <span class="toc-text">不要黑框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebUI"><span class="toc-number">4.</span> <span class="toc-text">WebUI</span></a></li></ol>
 		
 		</div>
 		
-		<p>官方编译：<a href="https://github.com/vim/vim-win32-installer/releases" target="_blank" rel="external">GitHub vim-win32-install</a> 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。</p>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
-<li>Visual Studio</li>
-<li>Windows SDK</li>
-<li>Vim 源代码（<a href="https://github.com/vim/vim/releases" target="_blank" rel="external">GitHub Release</a>）</li>
+		<p>首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 <a href="https://aria2.github.io/manual/en/html/index.html" target="_blank" rel="external">官方文档</a>。  </p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>从 <a href="https://github.com/meoow/aria2rpc" target="_blank" rel="external">GitHub</a> 下载 aria2rpc 脚本。脚本有 go 和 python 两个版本，本教程以 python 脚本为例<br>需要安装 <a href="https://www.python.org/downloads/" target="_blank" rel="external">Python2</a><br>在 Firefox 打开 FlashGot更多选项——常规——新增，输一个你喜欢的名字，比 如aria2rpc ——点击确定后弹出选择文件对话框。对于 Linux 或 Mac 直接选择脚本文件即可，对于 Windows 需选择 python 解释器（python.exe）所在路径，之后将脚本路径填入“参数模板”</p>
+<img src="/2017/03/08/flashgot-with-aria2/first.jpg" alt="初始版本" title="初始版本">
+<h2 id="脚本参数"><a href="#脚本参数" class="headerlink" title="脚本参数"></a>脚本参数</h2><ul>
+<li>–cookie：传入 cookie</li>
+<li>–output：输出文件名</li>
+<li>–dir：输出文件夹</li>
+<li>–rpc：RPC 地址，默认 <a href="http://localhost:6800/jsonrpc" target="_blank" rel="external">http://localhost:6800/jsonrpc</a></li>
+<li>–secret：token</li>
+<li>–user：用户名（不建议使用）</li>
+<li>–passwd：密码（不建议使用）</li>
+<li>URIs：下载链接</li>
 </ul>
-<h2 id="非等宽字体支持"><a href="#非等宽字体支持" class="headerlink" title="非等宽字体支持"></a>非等宽字体支持</h2><p>进入源码目录下的 <code>src/</code> 目录，找到 <code>Make_mvc.mak</code> 文件并打开。在 <code>370</code> 行的 <code>CFLAGS=</code> 后添加参数 <code>-DFEAT_PROPORTIONAL_FONTS</code> 使编译出的 Vim 支持非等宽字体。添加后效果如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CFLAGS = -DFEAT_PROPORTIONAL_FONTS -c /W3 /nologo <span class="variable">$(CVARS)</span> -I. -Iproto -DHAVE_PATHDEF -DWIN32 \</div><div class="line">        $(CSCOPE_DEFS) $(NETBEANS_DEFS) $(CHANNEL_DEFS) \</div><div class="line">        $(NBDEBUG_DEFS) $(XPM_DEFS) \</div><div class="line">        $(DEFINES) -DWINVER=$(WINVER) -D_WIN32_WINNT=$(WINVER) \</div><div class="line">        /Fo$(OUTDIR)/</div></pre></td></tr></table></figure>
-<p>当然也可以通过注释源码的方式实现支持非等宽，只是相对于修改 Makefile 修改源码较为麻烦。</p>
-<h2 id="DirectWrite-抗锯齿"><a href="#DirectWrite-抗锯齿" class="headerlink" title="DirectWrite 抗锯齿"></a>DirectWrite 抗锯齿</h2><p>GVim 在 Win 下的字体渲染效果较差，没有 Mac 和 Linux 的 GVim 看起来平滑细腻。虽然 Win 下 GVim 支持 DW 抗锯齿，但默认并没有开启。要开启抗锯齿功能不仅需要在编译时增加参数，还需要在 vimrc 中设置。<br>按照 Makefile，编译时提供参数：</p>
-<pre><code>DirectWrite=yes
-</code></pre><p>编译完成后打开 <code>_vimrc</code> 并添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if has(&apos;win32&apos;) || has(&apos;win64&apos;)</div><div class="line">    set renderoptions=type:directx,renmode:5</div><div class="line">end</div></pre></td></tr></table></figure>
-<p>重启 Vim 后就可看到字体渲染效果显著提高。<br><strong>注：</strong>此方法会增加 vim 对显卡的需求，在当前屏幕的代码量非常大的时候可能会降低 vim 的翻页速度。</p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>在 Vim 中输入命令 <code>:version</code> 就可以看到当前编译版包含的所有特性：加号为支持，减号为不支持。我们可以在编译打开对应的开关以支持某种功能或关闭开关减少编译得到的二进制文件的大小。</p>
-<h3 id="FEATURES"><a href="#FEATURES" class="headerlink" title="FEATURES"></a>FEATURES</h3><p>除了单个功能的开关之外，Vim 还提供了 <code>FEATURES</code> 选项以快速开启或关闭某一组特性，可选：<code>TINY</code>（体积最小）、<code>SMALL</code>、<code>NORMAL</code>、<code>BIG</code>、<code>HUGE</code>（体积最大）。如果对空间没有特殊要求推荐选择 <code>HUGE</code>。</p>
-<h3 id="脚本支持"><a href="#脚本支持" class="headerlink" title="脚本支持"></a>脚本支持</h3><p>Vim 提供的 VimScript 功能较为简单，运行速度也不快，所以许多插件开发者选择使用其它语言的脚本开发 Vim 插件。在使用这些插件的时候我们的 Vim 需要支持对应的脚本语言。在编译时传入解释器所在目录即可使 Vim 获得对对应语言的支持。DYNAMIC_LANGUAGE 则决定脚本语言模块于何时加载，如果设置为 <code>yes</code> 则只会在第一次运行脚本时加载语言模块，如果设置为 <code>no</code> 则在 Vim 启动时加载语言模块。</p>
-<p>附上我使用的 Vim x64 编译参数（支持 python，python3，lua。需要提前安装好对应环境并修改参数中的目录）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmake -f Make_mvc.mak CPU=AMD64 SDK_INCLUDE_DIR=&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include&quot; FEATURES=HUGE GUI=yes DIRECTX=yes OLE=yes MBYTE=yes IME=yes GIME=yes LUA=F:\lua LUA_VER=53 PYTHON=E:\DeveloperTools\Python27 PYTHON_VER=27 PYTHON3=E:\DeveloperTools\Python35 PYTHON3_VER=35 DYNAMIC_PYTHON=yes DYNAMIC_PYTHON3=yes DEBUG=no DYNAMIC_LUA=yes XPM=no</div></pre></td></tr></table></figure>
-<h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
-<li>需要 <code>+Python</code> 特性时，不要使用 Python 2.7.11。此版本会导致 Vim 无法加载 site-packages 导致所有需要 Python 的插件失效。</li>
-<li>使用 Visual Studio 编译 GVim 并添加 <code>+lua</code> 支持时，如果 lua 是从 <a href="http://luabinaries.luaforge.net/" target="_blank" rel="external">LuaForge Lua Binaries project</a> 下载的动态库，需要在 lua 根目录下创建 <code>include</code> 文件夹并将 <code>lua&lt;version&gt;.lib</code> 文件移动到 <code>include</code> 中。否则连接时会提示找不到 lib 文件。</li>
-</ul>
+<p>如需在下载时选择下载文件夹则在 FlashGot“参数模板”文本框中填写 [–dir FOLDER]<br>同理，传入浏览器 cookie 则填写 [–cookie CFILE]<br>显然默认 RPC 是连接本机 aria2 的，如果要连接路由器上的 aria2 则需指定 –rpc 参数为路由器 RPC 地址：–rpc <a href="http://192.168.1.1:6800/jsonrpc，具体地址和端口根据你的设定更改。注意" target="_blank" rel="external">http://192.168.1.1:6800/jsonrpc，具体地址和端口根据你的设定更改。注意</a> aria2 配置文件中一定要开启 rpc-allow-origin-all=true 和 rpc-listen-all=true<br>如果启用了 token 则还需添加 –secret &lt;这里换为你的 token&gt;，或者直接在 rpc 参数中指定 token<br>如下图，不要把最后的 [URL ] 删掉了，另外每个参数之间都有空格</p>
+<img src="/2017/03/08/flashgot-with-aria2/second.jpg" alt="改进版本" title="改进版本">
+<h2 id="不要黑框"><a href="#不要黑框" class="headerlink" title="不要黑框"></a>不要黑框</h2><p>FlashGot 调用下载时可能会出现黑框一闪而过，如果不想要黑框请把 python 解释器（python.exe）改为 pythonw.exe</p>
+<h2 id="WebUI"><a href="#WebUI" class="headerlink" title="WebUI"></a>WebUI</h2><p>YAAW：<a href="http://binux.github.io/yaaw/demo/" target="_blank" rel="external">http://binux.github.io/yaaw/demo/</a><br>Aria2 WebUI：<a href="http://ziahamza.github.io/webui-aria2/" target="_blank" rel="external">http://ziahamza.github.io/webui-aria2/</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -149,7 +131,7 @@ Vim 源代码（GitHub Release）
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Vim/">Vim</a>
+  <span></span> <a href="/tags/Firefox/">Firefox</a>
   </div>
 
 </div>
@@ -158,7 +140,7 @@ Vim 源代码（GitHub Release）
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/10/08/build-vim-on-windows/" data-title="在 Windows 上编译 Vim | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/03/08/flashgot-with-aria2/" data-title="flashgot-with-aria2 | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -171,14 +153,14 @@ Vim 源代码（GitHub Release）
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/10/08/git-ssh-proxy/" title="对 Git 使用 SSH 代理">
-  <strong>上一篇：</strong><br/>
-  <span>
-  对 Git 使用 SSH 代理</span>
+
+<div class="next">
+<a href="/2016/10/08/read-write-ini-in-c/"  title="C 语言读写 INI 文件">
+ <strong>下一篇：</strong><br/> 
+ <span>C 语言读写 INI 文件
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -196,7 +178,7 @@ Vim 源代码（GitHub Release）
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">1.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非等宽字体支持"><span class="toc-number">2.</span> <span class="toc-text">非等宽字体支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DirectWrite-抗锯齿"><span class="toc-number">3.</span> <span class="toc-text">DirectWrite 抗锯齿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-number">4.</span> <span class="toc-text">特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FEATURES"><span class="toc-number">4.1.</span> <span class="toc-text">FEATURES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本支持"><span class="toc-number">4.2.</span> <span class="toc-text">脚本支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">5.</span> <span class="toc-text">注</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本参数"><span class="toc-number">2.</span> <span class="toc-text">脚本参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要黑框"><span class="toc-number">3.</span> <span class="toc-text">不要黑框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebUI"><span class="toc-number">4.</span> <span class="toc-text">WebUI</span></a></li></ol>
  
   </div>
 
