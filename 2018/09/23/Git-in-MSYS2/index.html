@@ -4,26 +4,44 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>安卓 Activity 启动模式 | IceNature&#39;s Blog</title>
+    <title>使用原版 MSYS2 中的 Git | IceNature&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IceNature">
     
 
     
-    <meta name="description" content="在 Android 中，Activity 共有四种启动模式，分别是 standard、singleTop、singleTask 和 singleInstance。可在 AndroidManifest.xml 中对 &amp;lt;activity&amp;gt; 标签下的 android:launchMode 属性赋值来指定启动模式。
-standard默认启动模式，若未指定则默认选择此模式。Activity 可存">
+    <meta name="description" content="目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。
+
+此 Git 版本会随 Git 更新
+且可通过 MSYS2 自带的软件包管理器 pacman 来管理依赖和更新
+节省了一个 MSYS2 基础运行占用磁盘空间
+
+迁移使用
+1pacman -S gi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓 Activity 启动模式">
-<meta property="og:url" content="http://yoursite.com/2017/04/30/android-activity-launch-mode/index.html">
+<meta property="og:title" content="使用原版 MSYS2 中的 Git">
+<meta property="og:url" content="http://yoursite.com/2018/09/23/Git-in-MSYS2/index.html">
 <meta property="og:site_name" content="IceNature's Blog">
-<meta property="og:description" content="在 Android 中，Activity 共有四种启动模式，分别是 standard、singleTop、singleTask 和 singleInstance。可在 AndroidManifest.xml 中对 &amp;lt;activity&amp;gt; 标签下的 android:launchMode 属性赋值来指定启动模式。
-standard默认启动模式，若未指定则默认选择此模式。Activity 可存">
-<meta property="og:updated_time" content="2017-04-30T05:56:25.696Z">
+<meta property="og:description" content="目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。
+
+此 Git 版本会随 Git 更新
+且可通过 MSYS2 自带的软件包管理器 pacman 来管理依赖和更新
+节省了一个 MSYS2 基础运行占用磁盘空间
+
+迁移使用
+1pacman -S gi">
+<meta property="og:updated_time" content="2018-09-23T04:42:57.810Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓 Activity 启动模式">
-<meta name="twitter:description" content="在 Android 中，Activity 共有四种启动模式，分别是 standard、singleTop、singleTask 和 singleInstance。可在 AndroidManifest.xml 中对 &amp;lt;activity&amp;gt; 标签下的 android:launchMode 属性赋值来指定启动模式。
-standard默认启动模式，若未指定则默认选择此模式。Activity 可存">
+<meta name="twitter:title" content="使用原版 MSYS2 中的 Git">
+<meta name="twitter:description" content="目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。
+
+此 Git 版本会随 Git 更新
+且可通过 MSYS2 自带的软件包管理器 pacman 来管理依赖和更新
+节省了一个 MSYS2 基础运行占用磁盘空间
+
+迁移使用
+1pacman -S gi">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -83,14 +101,14 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/30/android-activity-launch-mode/" title="安卓 Activity 启动模式" itemprop="url">安卓 Activity 启动模式</a>
+      <a href="/2018/09/23/Git-in-MSYS2/" title="使用原版 MSYS2 中的 Git" itemprop="url">使用原版 MSYS2 中的 Git</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="IceNature" target="_blank" itemprop="author">IceNature</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-30T05:47:01.000Z" itemprop="datePublished"> 发表于 2017-04-30</time>
+    <time datetime="2018-09-23T04:26:08.000Z" itemprop="datePublished"> 发表于 2018-09-23</time>
     
   </p>
 </header>
@@ -99,15 +117,24 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#standard"><span class="toc-number">1.</span> <span class="toc-text">standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTop"><span class="toc-number">2.</span> <span class="toc-text">singleTop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTask"><span class="toc-number">3.</span> <span class="toc-text">singleTask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleInstance"><span class="toc-number">4.</span> <span class="toc-text">singleInstance</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#迁移"><span class="toc-number">1.</span> <span class="toc-text">迁移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-环境变量"><span class="toc-number">2.</span> <span class="toc-text">Windows 环境变量</span></a></li></ol>
 		
 		</div>
 		
-		<p>在 Android 中，Activity 共有四种启动模式，分别是 <code>standard</code>、<code>singleTop</code>、<code>singleTask</code> 和 <code>singleInstance</code>。可在 <code>AndroidManifest.xml</code> 中对 <code>&lt;activity&gt;</code> 标签下的 <code>android:launchMode</code> 属性赋值来指定启动模式。</p>
-<h2 id="standard"><a href="#standard" class="headerlink" title="standard"></a>standard</h2><p>默认启动模式，若未指定则默认选择此模式。Activity 可存在多个实例。</p>
-<h2 id="singleTop"><a href="#singleTop" class="headerlink" title="singleTop"></a>singleTop</h2><p>当活动在栈顶时，再次启动活动时并不会创建新的实例而是直接使用已在栈顶的活动。但若活动不在栈顶，则创建新的实例。</p>
-<h2 id="singleTask"><a href="#singleTask" class="headerlink" title="singleTask"></a>singleTask</h2><p>与 <code>singleTop</code> 类似，不同的是即使活动不在栈顶，也不会创建新的示例而是直接使用已在栈中的示例。与此同时，栈中此活动之上的所有活动都会被弹出。</p>
-<h2 id="singleInstance"><a href="#singleInstance" class="headerlink" title="singleInstance"></a>singleInstance</h2><p>创建一个新的栈保存当前活动。返回时顺序按照栈顺序而不是活动的启动顺序。</p>
+		<p>目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。</p>
+<ul>
+<li>此 Git 版本会随 Git 更新</li>
+<li>且可通过 MSYS2 自带的软件包管理器 pacman 来管理依赖和更新</li>
+<li>节省了一个 MSYS2 基础运行占用磁盘空间</li>
+</ul>
+<h2 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h2><p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S git</div></pre></td></tr></table></figure>
+<p>在 MSYS2 中安装 Git。<br>将 Git 放在 %HOMEPATH% 中的 <code>.ssh</code> 文件夹以及 <code>.gitconfig</code> 复制到 MSYS2 的 <code>~</code> 目录下相同位置。如果使用了 GPG，需要在 MSYS2 中使用 <code>gpg</code> 命令导入之前的密钥对。之后就可以正常使用了。  </p>
+<h2 id="Windows-环境变量"><a href="#Windows-环境变量" class="headerlink" title="Windows 环境变量"></a>Windows 环境变量</h2><p>但是使用时出现一个问题，既不想将整个 MSYS2 的 <code>/usr/bin</code> 放入 <code>PATH</code>，又需要让 Windows 程序调用 Git。<br>尝试将 Git for Windows 中的 <code>cmd</code> 目录复制到 MSYS2 根目录下并放入环境变量。但运行 git 提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error launching git:</div></pre></td></tr></table></figure>
+<p>只好自己动手写批处理，运行 git 时先将 <code>/usr/bin</code> 放入 <code>PATH</code>，再将命令参数传入 Git。完整程序如下：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">ECHO</span> OFF</div><div class="line"><span class="built_in">SET</span> MSYS2=<span class="variable">%~dp0%</span>..\usr\bin</div><div class="line"></div><div class="line"><span class="keyword">FOR</span> <span class="variable">%%i</span> <span class="keyword">IN</span> ("git.exe") <span class="keyword">DO</span> <span class="built_in">SET</span> GIT=<span class="variable">%%~</span>$<span class="built_in">PATH</span>:i</div><div class="line"><span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXIST</span> "<span class="variable">%GIT%</span>" (</div><div class="line">    <span class="built_in">SET</span> "<span class="built_in">PATH</span>=<span class="variable">%MSYS2%</span>;<span class="variable">%PATH%</span>"</div><div class="line">)</div><div class="line"></div><div class="line">git.exe %*</div><div class="line">@<span class="built_in">ECHO</span> ON</div></pre></td></tr></table></figure>
+<p>保存为 <code>git.bat</code> 放入之前的 cmd 目录，即可无缝对接 Windows。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +143,7 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Android/">Android</a>
+  <span></span> <a href="/tags/Git/">Git</a>
   </div>
 
 </div>
@@ -125,7 +152,7 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/04/30/android-activity-launch-mode/" data-title="安卓 Activity 启动模式 | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2018/09/23/Git-in-MSYS2/" data-title="使用原版 MSYS2 中的 Git | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,19 +165,11 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/05/13/windows-console-utf8/" title="解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码">
-  <strong>上一篇：</strong><br/>
-  <span>
-  解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/08/flashgot-with-aria2/"  title="FlashGot 调用 Aria2 下载">
+<a href="/2017/05/13/windows-console-utf8/"  title="解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码">
  <strong>下一篇：</strong><br/> 
- <span>FlashGot 调用 Aria2 下载
+ <span>解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码
 </span>
 </a>
 </div>
@@ -171,7 +190,7 @@ standard默认启动模式，若未指定则默认选择此模式。Activity 可
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#standard"><span class="toc-number">1.</span> <span class="toc-text">standard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTop"><span class="toc-number">2.</span> <span class="toc-text">singleTop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleTask"><span class="toc-number">3.</span> <span class="toc-text">singleTask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#singleInstance"><span class="toc-number">4.</span> <span class="toc-text">singleInstance</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#迁移"><span class="toc-number">1.</span> <span class="toc-text">迁移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-环境变量"><span class="toc-number">2.</span> <span class="toc-text">Windows 环境变量</span></a></li></ol>
  
   </div>
 
