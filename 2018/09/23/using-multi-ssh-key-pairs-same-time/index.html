@@ -4,25 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>C 语言读写 INI 文件 | IceNature&#39;s Blog</title>
+    <title>同时使用多个 SSH Key | IceNature&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IceNature">
     
 
     
-    <meta name="description" content="文件格式ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下 1234567891011[appName1]keyName11=value11keyName12=value12keyName13=value13[appName2]keyName21=value21keyName22=value22keyName23=value23[appName3]keyName31=value3">
-<meta name="keywords" content="C&#x2F;C++">
+    <meta name="description" content="为了安全起见，希望能对 Git 和 VPS 使用不同的 SSH Key，这样如果有一个不慎泄露，之会影响到一项服务，上传新的密钥也比较方便。由于 SSH 创建密钥时默认使用的名字是 id_rsa（根据加密方式不同略有差别），首先需要将之前生成的密钥该一个名字。比如我是用作 Git，则将其改为 id_rsa_git 和 id_rsa_git.pub。之后创建一个新的密钥。如果想改名的话也可以改一下文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C 语言读写 INI 文件">
-<meta property="og:url" content="https://icenature.github.io/2016/10/08/read-write-ini-in-c/index.html">
+<meta property="og:title" content="同时使用多个 SSH Key">
+<meta property="og:url" content="https://icenature.github.io/2018/09/23/using-multi-ssh-key-pairs-same-time/index.html">
 <meta property="og:site_name" content="IceNature&#39;s Blog">
-<meta property="og:description" content="文件格式ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下 1234567891011[appName1]keyName11=value11keyName12=value12keyName13=value13[appName2]keyName21=value21keyName22=value22keyName23=value23[appName3]keyName31=value3">
+<meta property="og:description" content="为了安全起见，希望能对 Git 和 VPS 使用不同的 SSH Key，这样如果有一个不慎泄露，之会影响到一项服务，上传新的密钥也比较方便。由于 SSH 创建密钥时默认使用的名字是 id_rsa（根据加密方式不同略有差别），首先需要将之前生成的密钥该一个名字。比如我是用作 Git，则将其改为 id_rsa_git 和 id_rsa_git.pub。之后创建一个新的密钥。如果想改名的话也可以改一下文">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2016-10-08T08:29:50.333Z">
+<meta property="og:updated_time" content="2018-09-23T11:53:27.576Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C 语言读写 INI 文件">
-<meta name="twitter:description" content="文件格式ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下 1234567891011[appName1]keyName11=value11keyName12=value12keyName13=value13[appName2]keyName21=value21keyName22=value22keyName23=value23[appName3]keyName31=value3">
+<meta name="twitter:title" content="同时使用多个 SSH Key">
+<meta name="twitter:description" content="为了安全起见，希望能对 Git 和 VPS 使用不同的 SSH Key，这样如果有一个不慎泄露，之会影响到一项服务，上传新的密钥也比较方便。由于 SSH 创建密钥时默认使用的名字是 id_rsa（根据加密方式不同略有差别），首先需要将之前生成的密钥该一个名字。比如我是用作 Git，则将其改为 id_rsa_git 和 id_rsa_git.pub。之后创建一个新的密钥。如果想改名的话也可以改一下文">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -81,14 +80,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/10/08/read-write-ini-in-c/" title="C 语言读写 INI 文件" itemprop="url">C 语言读写 INI 文件</a>
+      <a href="/2018/09/23/using-multi-ssh-key-pairs-same-time/" title="同时使用多个 SSH Key" itemprop="url">同时使用多个 SSH Key</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="IceNature" target="_blank" itemprop="author">IceNature</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-08T06:25:04.000Z" itemprop="datePublished"> 发表于 2016-10-08</time>
+    <time datetime="2018-09-23T11:42:39.000Z" itemprop="datePublished"> 发表于 2018-09-23</time>
     
   </p>
 </header>
@@ -97,31 +96,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件格式"><span class="toc-number">1.</span> <span class="toc-text">文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">2.</span> <span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写入-WritePrivateProfileString"><span class="toc-number">2.1.</span> <span class="toc-text">写入 - WritePrivateProfileString</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取数字-GetPrivateProfileInt"><span class="toc-number">2.2.</span> <span class="toc-text">读取数字 - GetPrivateProfileInt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取字符串-GetPrivateProfileString"><span class="toc-number">2.3.</span> <span class="toc-text">读取字符串 - GetPrivateProfileString</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MSDN-文档"><span class="toc-number">3.</span> <span class="toc-text">MSDN 文档</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h2><p>ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[appName1]</span></span><br><span class="line"><span class="attr">keyName11</span>=value11</span><br><span class="line"><span class="attr">keyName12</span>=value12</span><br><span class="line"><span class="attr">keyName13</span>=value13</span><br><span class="line"><span class="section">[appName2]</span></span><br><span class="line"><span class="attr">keyName21</span>=value21</span><br><span class="line"><span class="attr">keyName22</span>=value22</span><br><span class="line"><span class="attr">keyName23</span>=value23</span><br><span class="line"><span class="section">[appName3]</span></span><br><span class="line"><span class="attr">keyName31</span>=value31</span><br><span class="line">..........</span><br></pre></td></tr></table></figure>
-<p><code>appName</code> 和 <code>keyName</code> 通常在程序编写时就已经确定，我们只需读取对应的 <code>value</code> 即可。</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>Windows 提供了一组 API 用来操作 ini 文件，API 最低系统支持 Windows 2000 Professional 或其服务器版。使用下面的代码前需要先 <code>#include &lt;windows.h&gt;</code>。</p>
-<h3 id="写入-WritePrivateProfileString"><a href="#写入-WritePrivateProfileString" class="headerlink" title="写入 - WritePrivateProfileString"></a>写入 - <code>WritePrivateProfileString</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL WINAPI <span class="title">WritePrivateProfileSection</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpAppName, </span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpKeyName,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpString,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpFileName </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
-<p><code>lpAppName</code> 写入数据的节，C 风格字符串。<br><code>lpKeyName</code> 写入数据的键，C 风格字符串。<br><code>lpString</code> 写入到上面两个参数指定的位置的数据，C 风格字符串。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>如果写入成功则返回<strong>非零值</strong>；如果写入失败则返回<strong>零</strong>，可调用 <code>GetLastError</code> 获取更多有关错误的信息。</p>
-<h3 id="读取数字-GetPrivateProfileInt"><a href="#读取数字-GetPrivateProfileInt" class="headerlink" title="读取数字 - GetPrivateProfileInt"></a>读取数字 - <code>GetPrivateProfileInt</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">UINT WINAPI <span class="title">GetPrivateProfileInt</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpAppName,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpKeyName,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ INT     nDefault,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_ LPCTSTR lpFileName </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
-<p><code>lpAppName</code> 读取数据的节，C 风格字符串。<br><code>lpKeyName</code> 读取数据的键，C 风格字符串。<br><code>nDefault</code> 默认值，如果未找到指定的键则返回这个值。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>返回值为读取的结果，如果未找到指定的键则返回默认值。</p>
-<h3 id="读取字符串-GetPrivateProfileString"><a href="#读取字符串-GetPrivateProfileString" class="headerlink" title="读取字符串 - GetPrivateProfileString"></a>读取字符串 - <code>GetPrivateProfileString</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DWORD WINAPI <span class="title">GetPrivateProfileString</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_  LPCTSTR lpAppName,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_  LPCTSTR lpKeyName,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_  LPCTSTR lpDefault,</span></span></span><br><span class="line"><span class="function"><span class="params">    _Out_ LPTSTR  lpReturnedString,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_  DWORD   nSize,</span></span></span><br><span class="line"><span class="function"><span class="params">    _In_  LPCTSTR lpFileName</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
-<p><code>lpAppName</code> 读取数据的节，C 风格字符串。<br><code>lpKeyName</code> 读取数据的键，C 风格字符串。<br><code>lpDefault</code> 默认值，如果未找到指定的键则返回这个值，C 风格字符串。<br><code>lpReturnedString</code> 接收结果的缓冲区，需确认缓冲区大小足够容纳读取的值。<br><code>nSize</code> 接收结果的缓冲区大小，2 字节大的整数。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>若读取成功则返回实际写入至缓冲区的字符个数；若读取失败则返回 <code>nSize - 1</code> 或 <code>nSize - 2</code>。</p>
-<h2 id="MSDN-文档"><a href="#MSDN-文档" class="headerlink" title="MSDN 文档"></a>MSDN 文档</h2><p><a href="https://msdn.microsoft.com/en-us/library/ms724875(v=vs.85).aspx" target="_blank" rel="noopener">Registry Functions</a></p>
+		<p>为了安全起见，希望能对 Git 和 VPS 使用不同的 SSH Key，这样如果有一个不慎泄露，之会影响到一项服务，上传新的密钥也比较方便。<br>由于 SSH 创建密钥时默认使用的名字是 <code>id_rsa</code>（根据加密方式不同略有差别），首先需要将之前生成的密钥该一个名字。比如我是用作 Git，则将其改为 <code>id_rsa_git</code> 和 <code>id_rsa_git.pub</code>。<br>之后创建一个新的密钥。如果想改名的话也可以改一下文件名。这样 <code>.ssh</code> 目录下就有两组密钥了，分别是</p>
+<ul>
+<li>id_rsa_git</li>
+<li>id_rsa_vps</li>
+</ul>
+<p>然后在 <code>.ssh</code> 目录下创建一个新文件 <code>config</code>，内容为</p>
+<pre><code>IdentityFile ~/.ssh/id_rsa_git
+IdentityFile ~/.ssh/id_rsa_vps
+</code></pre><p>每一行的 <code>IdentityFile</code> 指定一个密钥，后随密钥的路径。通过添加这样多个 <code>IdentityFile</code> 即可添加多个密钥。<br>当连接到不同服务时，SSH 会根据对方返回的公钥自动决定使用哪一个私钥。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/C-C/">C/C++</a>
-  </div>
 
 </div>
 
@@ -129,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://icenature.github.io/2016/10/08/read-write-ini-in-c/" data-title="C 语言读写 INI 文件 | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="https://icenature.github.io/2018/09/23/using-multi-ssh-key-pairs-same-time/" data-title="同时使用多个 SSH Key | IceNature&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -142,19 +134,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/08/flashgot-with-aria2/" title="FlashGot 调用 Aria2 下载">
-  <strong>上一篇：</strong><br/>
-  <span>
-  FlashGot 调用 Aria2 下载</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/10/08/git-ssh-proxy/"  title="对 Git 使用 SSH 代理">
+<a href="/2018/09/23/Git-in-MSYS2/"  title="使用原版 MSYS2 中的 Git">
  <strong>下一篇：</strong><br/> 
- <span>对 Git 使用 SSH 代理
+ <span>使用原版 MSYS2 中的 Git
 </span>
 </a>
 </div>
@@ -175,7 +159,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件格式"><span class="toc-number">1.</span> <span class="toc-text">文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-number">2.</span> <span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写入-WritePrivateProfileString"><span class="toc-number">2.1.</span> <span class="toc-text">写入 - WritePrivateProfileString</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取数字-GetPrivateProfileInt"><span class="toc-number">2.2.</span> <span class="toc-text">读取数字 - GetPrivateProfileInt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取字符串-GetPrivateProfileString"><span class="toc-number">2.3.</span> <span class="toc-text">读取字符串 - GetPrivateProfileString</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MSDN-文档"><span class="toc-number">3.</span> <span class="toc-text">MSDN 文档</span></a></li></ol>
+ 
  
   </div>
 

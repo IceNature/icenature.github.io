@@ -11,19 +11,18 @@
     
 
     
-    <meta name="description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。
-12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
+    <meta name="description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。 12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
+<meta name="keywords" content="C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码">
+<meta property="og:title" content="解决 C&#x2F;C++ Windows 下控制台输出 UTF-8 字符乱码">
 <meta property="og:url" content="https://icenature.github.io/2017/05/13/windows-console-utf8/index.html">
-<meta property="og:site_name" content="IceNature's Blog">
-<meta property="og:description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。
-12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
+<meta property="og:site_name" content="IceNature&#39;s Blog">
+<meta property="og:description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。 12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-05-13T04:37:39.413Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码">
-<meta name="twitter:description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。
-12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
+<meta name="twitter:title" content="解决 C&#x2F;C++ Windows 下控制台输出 UTF-8 字符乱码">
+<meta name="twitter:description" content="在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。 12345678system(&quot;chcp 65001&quot;);           // 使用 65001 代码页（UTF-8）CONSOLE_FONT_INFOEX inf">
 
     
     <link rel="alternative" href="/atom.xml" title="IceNature&#39;s Blog" type="application/atom+xml">
@@ -103,7 +102,7 @@
 		</div>
 		
 		<p>在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。<br>所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">system(<span class="string">"chcp 65001"</span>);           <span class="comment">// 使用 65001 代码页（UTF-8）</span></div><div class="line"></div><div class="line">CONSOLE_FONT_INFOEX info = &#123; <span class="number">0</span> &#125;;</div><div class="line">info.cbSize = <span class="keyword">sizeof</span>(info);</div><div class="line">info.dwFontSize.Y = <span class="number">20</span>;         <span class="comment">// 此处指定字体大小</span></div><div class="line">info.FontWeight = FW_NORMAL;</div><div class="line">wcscpy_s(info.FaceName, <span class="string">L"Console"</span>);</div><div class="line">SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), <span class="literal">NULL</span>, &amp;info);      <span class="comment">// 使用 Console 字体</span></div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">system(<span class="string">"chcp 65001"</span>);           <span class="comment">// 使用 65001 代码页（UTF-8）</span></span><br><span class="line"></span><br><span class="line">CONSOLE_FONT_INFOEX info = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">info.cbSize = <span class="keyword">sizeof</span>(info);</span><br><span class="line">info.dwFontSize.Y = <span class="number">20</span>;         <span class="comment">// 此处指定字体大小</span></span><br><span class="line">info.FontWeight = FW_NORMAL;</span><br><span class="line">wcscpy_s(info.FaceName, <span class="string">L"Console"</span>);</span><br><span class="line">SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), <span class="literal">NULL</span>, &amp;info);      <span class="comment">// 使用 Console 字体</span></span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
