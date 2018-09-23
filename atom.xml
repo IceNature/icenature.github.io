@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>IceNature&#39;s Blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2018-09-23T04:42:57.810Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>IceNature</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用原版 MSYS2 中的 Git</title>
+    <link href="http://yoursite.com/2018/09/23/Git-in-MSYS2/"/>
+    <id>http://yoursite.com/2018/09/23/Git-in-MSYS2/</id>
+    <published>2018-09-23T04:26:08.000Z</published>
+    <updated>2018-09-23T04:42:57.810Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。</p><ul><li>此 Git 版本会随 Git 更新</li><li>且可通过 MSYS2 自带的软件包管理器 pacman 来管理依赖和更新</li><li>节省了一个 MSYS2 基础运行占用磁盘空间</li></ul><h2 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h2><p>使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacman -S git</div></pre></td></tr></table></figure><p>在 MSYS2 中安装 Git。<br>将 Git 放在 %HOMEPATH% 中的 <code>.ssh</code> 文件夹以及 <code>.gitconfig</code> 复制到 MSYS2 的 <code>~</code> 目录下相同位置。如果使用了 GPG，需要在 MSYS2 中使用 <code>gpg</code> 命令导入之前的密钥对。之后就可以正常使用了。  </p><h2 id="Windows-环境变量"><a href="#Windows-环境变量" class="headerlink" title="Windows 环境变量"></a>Windows 环境变量</h2><p>但是使用时出现一个问题，既不想将整个 MSYS2 的 <code>/usr/bin</code> 放入 <code>PATH</code>，又需要让 Windows 程序调用 Git。<br>尝试将 Git for Windows 中的 <code>cmd</code> 目录复制到 MSYS2 根目录下并放入环境变量。但运行 git 提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error launching git:</div></pre></td></tr></table></figure><p>只好自己动手写批处理，运行 git 时先将 <code>/usr/bin</code> 放入 <code>PATH</code>，再将命令参数传入 Git。完整程序如下：</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@<span class="built_in">ECHO</span> OFF</div><div class="line"><span class="built_in">SET</span> MSYS2=<span class="variable">%~dp0%</span>..\usr\bin</div><div class="line"></div><div class="line"><span class="keyword">FOR</span> <span class="variable">%%i</span> <span class="keyword">IN</span> ("git.exe") <span class="keyword">DO</span> <span class="built_in">SET</span> GIT=<span class="variable">%%~</span>$<span class="built_in">PATH</span>:i</div><div class="line"><span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXIST</span> "<span class="variable">%GIT%</span>" (</div><div class="line">    <span class="built_in">SET</span> "<span class="built_in">PATH</span>=<span class="variable">%MSYS2%</span>;<span class="variable">%PATH%</span>"</div><div class="line">)</div><div class="line"></div><div class="line">git.exe %*</div><div class="line">@<span class="built_in">ECHO</span> ON</div></pre></td></tr></table></figure><p>保存为 <code>git.bat</code> 放入之前的 cmd 目录，即可无缝对接 Windows。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;目前官方版 Git for Windows 使用了阉割过的 MSYS2 来提供 Linux 终端功能以供 Git 正常运行。如果已经是先安装了独立的 MSYS2，实际上可以直接使用软件仓库中的 Git。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;此 Git 版本会随 Git 更新&lt;/li&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决 C/C++ Windows 下控制台输出 UTF-8 字符乱码</title>
+    <link href="http://yoursite.com/2017/05/13/windows-console-utf8/"/>
+    <id>http://yoursite.com/2017/05/13/windows-console-utf8/</id>
+    <published>2017-05-13T04:19:08.000Z</published>
+    <updated>2017-05-13T04:37:39.413Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。<br>所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">system(<span class="string">"chcp 65001"</span>);           <span class="comment">// 使用 65001 代码页（UTF-8）</span></div><div class="line"></div><div class="line">CONSOLE_FONT_INFOEX info = &#123; <span class="number">0</span> &#125;;</div><div class="line">info.cbSize = <span class="keyword">sizeof</span>(info);</div><div class="line">info.dwFontSize.Y = <span class="number">20</span>;         <span class="comment">// 此处指定字体大小</span></div><div class="line">info.FontWeight = FW_NORMAL;</div><div class="line">wcscpy_s(info.FaceName, <span class="string">L"Console"</span>);</div><div class="line">SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), <span class="literal">NULL</span>, &amp;info);      <span class="comment">// 使用 Console 字体</span></div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在 Windows 下使用 C/C++ 向控制台输出 UTF-8 字符时总是会出现乱码。这是由于 Windows 默认使用 GBK 作为控制台字符的编码。&lt;br&gt;所以只需修改控制台的代码页并使用支持 UTF-8 编码的字体即可正常输出。&lt;/p&gt;
+&lt;figure class=
+      
+    
+    </summary>
+    
+    
+      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>安卓 Activity 启动模式</title>
+    <link href="http://yoursite.com/2017/04/30/android-activity-launch-mode/"/>
+    <id>http://yoursite.com/2017/04/30/android-activity-launch-mode/</id>
+    <published>2017-04-30T05:47:01.000Z</published>
+    <updated>2017-04-30T05:56:25.696Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Android 中，Activity 共有四种启动模式，分别是 <code>standard</code>、<code>singleTop</code>、<code>singleTask</code> 和 <code>singleInstance</code>。可在 <code>AndroidManifest.xml</code> 中对 <code>&lt;activity&gt;</code> 标签下的 <code>android:launchMode</code> 属性赋值来指定启动模式。</p><h2 id="standard"><a href="#standard" class="headerlink" title="standard"></a>standard</h2><p>默认启动模式，若未指定则默认选择此模式。Activity 可存在多个实例。</p><h2 id="singleTop"><a href="#singleTop" class="headerlink" title="singleTop"></a>singleTop</h2><p>当活动在栈顶时，再次启动活动时并不会创建新的实例而是直接使用已在栈顶的活动。但若活动不在栈顶，则创建新的实例。</p><h2 id="singleTask"><a href="#singleTask" class="headerlink" title="singleTask"></a>singleTask</h2><p>与 <code>singleTop</code> 类似，不同的是即使活动不在栈顶，也不会创建新的示例而是直接使用已在栈中的示例。与此同时，栈中此活动之上的所有活动都会被弹出。</p><h2 id="singleInstance"><a href="#singleInstance" class="headerlink" title="singleInstance"></a>singleInstance</h2><p>创建一个新的栈保存当前活动。返回时顺序按照栈顺序而不是活动的启动顺序。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在 Android 中，Activity 共有四种启动模式，分别是 &lt;code&gt;standard&lt;/code&gt;、&lt;code&gt;singleTop&lt;/code&gt;、&lt;code&gt;singleTask&lt;/code&gt; 和 &lt;code&gt;singleInstance&lt;/code&gt;。可在 &lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FlashGot 调用 Aria2 下载</title>
+    <link href="http://yoursite.com/2017/03/08/flashgot-with-aria2/"/>
+    <id>http://yoursite.com/2017/03/08/flashgot-with-aria2/</id>
+    <published>2017-03-08T12:12:27.000Z</published>
+    <updated>2017-03-08T12:46:58.999Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 <a href="https://aria2.github.io/manual/en/html/index.html" target="_blank" rel="external">官方文档</a>  </p><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>从 <a href="https://github.com/meoow/aria2rpc" target="_blank" rel="external">GitHub</a> 下载 aria2rpc 脚本。脚本有 go 和 python 两个版本，本教程以 python 脚本为例<br>需要安装 <a href="https://www.python.org/downloads/" target="_blank" rel="external">Python2</a><br>在 Firefox 打开 FlashGot更多选项——常规——新增，输一个你喜欢的名字，比 如aria2rpc ——点击确定后弹出选择文件对话框。对于 Linux 或 Mac 直接选择脚本文件即可，对于 Windows 需选择 python 解释器（python.exe）所在路径，之后将脚本路径填入“参数模板”</p><img src="/2017/03/08/flashgot-with-aria2/first.jpg" alt="初始版本" title="初始版本"><h2 id="脚本参数"><a href="#脚本参数" class="headerlink" title="脚本参数"></a>脚本参数</h2><ul><li>–cookie：传入 cookie</li><li>–output：输出文件名</li><li>–dir：输出文件夹</li><li>–rpc：RPC 地址，默认 <a href="http://localhost:6800/jsonrpc" target="_blank" rel="external">http://localhost:6800/jsonrpc</a></li><li>–secret：token</li><li>–user：用户名（不建议使用）</li><li>–passwd：密码（不建议使用）</li><li>URIs：下载链接</li></ul><p>如需在下载时选择下载文件夹则在 FlashGot“参数模板”文本框中填写 [–dir FOLDER]<br>同理，传入浏览器 cookie 则填写 [–cookie CFILE]<br>显然默认 RPC 是连接本机 aria2 的，如果要连接路由器上的 aria2 则需指定 –rpc 参数为路由器 RPC 地址：–rpc <a href="http://192.168.1.1:6800/jsonrpc" target="_blank" rel="external">http://192.168.1.1:6800/jsonrpc</a> ，具体地址和端口根据你的设定更改。注意 aria2 配置文件中一定要开启 rpc-allow-origin-all=true 和 rpc-listen-all=true<br>如果启用了 token 则还需添加 –secret &lt;这里换为你的 token&gt;，或者直接在 rpc 参数中指定 token<br>如下图，不要把最后的 [URL ] 删掉了，另外每个参数之间都有空格</p><img src="/2017/03/08/flashgot-with-aria2/second.jpg" alt="改进版本" title="改进版本"><h2 id="不要黑框"><a href="#不要黑框" class="headerlink" title="不要黑框"></a>不要黑框</h2><p>FlashGot 调用下载时可能会出现黑框一闪而过，如果不想要黑框请把 python 解释器（python.exe）改为 pythonw.exe</p><h2 id="WebUI"><a href="#WebUI" class="headerlink" title="WebUI"></a>WebUI</h2><p>YAAW：<a href="http://binux.github.io/yaaw/demo/" target="_blank" rel="external">http://binux.github.io/yaaw/demo/</a><br>Aria2 WebUI：<a href="http://ziahamza.github.io/webui-aria2/" target="_blank" rel="external">http://ziahamza.github.io/webui-aria2/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;首先 aria2 需以 daemon 模式运行且已经启用 RPC，具体设置参见 &lt;a href=&quot;https://aria2.github.io/manual/en/html/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="Firefox" scheme="http://yoursite.com/tags/Firefox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C 语言读写 INI 文件</title>
+    <link href="http://yoursite.com/2016/10/08/read-write-ini-in-c/"/>
+    <id>http://yoursite.com/2016/10/08/read-write-ini-in-c/</id>
+    <published>2016-10-08T06:25:04.000Z</published>
+    <updated>2016-10-08T08:29:50.333Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h2><p>ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下</p><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[appName1]</div><div class="line">keyName11=value11</div><div class="line">keyName12=value12</div><div class="line">keyName13=value13</div><div class="line">[appName2]</div><div class="line">keyName21=value21</div><div class="line">keyName22=value22</div><div class="line">keyName23=value23</div><div class="line">[appName3]</div><div class="line">keyName31=value31</div><div class="line">..........</div></pre></td></tr></table></figure><p><code>appName</code> 和 <code>keyName</code> 通常在程序编写时就已经确定，我们只需读取对应的 <code>value</code> 即可。</p><h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>Windows 提供了一组 API 用来操作 ini 文件，API 最低系统支持 Windows 2000 Professional 或其服务器版。使用下面的代码前需要先 <code>#include &lt;windows.h&gt;</code>。</p><h3 id="写入-WritePrivateProfileString"><a href="#写入-WritePrivateProfileString" class="headerlink" title="写入 - WritePrivateProfileString"></a>写入 - <code>WritePrivateProfileString</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">BOOL WINAPI <span class="title">WritePrivateProfileSection</span><span class="params">(</span></span></div><div class="line">    _In_ LPCTSTR lpAppName, </div><div class="line">    _In_ LPCTSTR lpKeyName,</div><div class="line">    _In_ LPCTSTR lpString,</div><div class="line">    _In_ LPCTSTR lpFileName </div><div class="line">);</div></pre></td></tr></table></figure><p><code>lpAppName</code> 写入数据的节，C 风格字符串。<br><code>lpKeyName</code> 写入数据的键，C 风格字符串。<br><code>lpString</code> 写入到上面两个参数指定的位置的数据，C 风格字符串。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>如果写入成功则返回<strong>非零值</strong>；如果写入失败则返回<strong>零</strong>，可调用 <code>GetLastError</code> 获取更多有关错误的信息。</p><h3 id="读取数字-GetPrivateProfileInt"><a href="#读取数字-GetPrivateProfileInt" class="headerlink" title="读取数字 - GetPrivateProfileInt"></a>读取数字 - <code>GetPrivateProfileInt</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">UINT WINAPI <span class="title">GetPrivateProfileInt</span><span class="params">(</span></span></div><div class="line">    _In_ LPCTSTR lpAppName,</div><div class="line">    _In_ LPCTSTR lpKeyName,</div><div class="line">    _In_ INT     nDefault,</div><div class="line">    _In_ LPCTSTR lpFileName </div><div class="line">);</div></pre></td></tr></table></figure><p><code>lpAppName</code> 读取数据的节，C 风格字符串。<br><code>lpKeyName</code> 读取数据的键，C 风格字符串。<br><code>nDefault</code> 默认值，如果未找到指定的键则返回这个值。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>返回值为读取的结果，如果未找到指定的键则返回默认值。</p><h3 id="读取字符串-GetPrivateProfileString"><a href="#读取字符串-GetPrivateProfileString" class="headerlink" title="读取字符串 - GetPrivateProfileString"></a>读取字符串 - <code>GetPrivateProfileString</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function">DWORD WINAPI <span class="title">GetPrivateProfileString</span><span class="params">(</span></span></div><div class="line">    _In_  LPCTSTR lpAppName,</div><div class="line">    _In_  LPCTSTR lpKeyName,</div><div class="line">    _In_  LPCTSTR lpDefault,</div><div class="line">    _Out_ LPTSTR  lpReturnedString,</div><div class="line">    _In_  DWORD   nSize,</div><div class="line">    _In_  LPCTSTR lpFileName</div><div class="line">);</div></pre></td></tr></table></figure><p><code>lpAppName</code> 读取数据的节，C 风格字符串。<br><code>lpKeyName</code> 读取数据的键，C 风格字符串。<br><code>lpDefault</code> 默认值，如果未找到指定的键则返回这个值，C 风格字符串。<br><code>lpReturnedString</code> 接收结果的缓冲区，需确认缓冲区大小足够容纳读取的值。<br><code>nSize</code> 接收结果的缓冲区大小，2 字节大的整数。<br><code>lpFileName</code> 文件路径，C 风格字符串。<br>若读取成功则返回实际写入至缓冲区的字符个数；若读取失败则返回 <code>nSize - 1</code> 或 <code>nSize - 2</code>。</p><h2 id="MSDN-文档"><a href="#MSDN-文档" class="headerlink" title="MSDN 文档"></a>MSDN 文档</h2><p><a href="https://msdn.microsoft.com/en-us/library/ms724875(v=vs.85).aspx" target="_blank" rel="external">Registry Functions</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;文件格式&quot;&gt;&lt;a href=&quot;#文件格式&quot; class=&quot;headerlink&quot; title=&quot;文件格式&quot;&gt;&lt;/a&gt;文件格式&lt;/h2&gt;&lt;p&gt;ini 文件是一种纯文本格式的文件，通常用来保存程序设置。其结构如下&lt;/p&gt;
+&lt;figure class=&quot;highligh
+      
+    
+    </summary>
+    
+    
+      <category term="C/C++" scheme="http://yoursite.com/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>对 Git 使用 SSH 代理</title>
+    <link href="http://yoursite.com/2016/10/08/git-ssh-proxy/"/>
+    <id>http://yoursite.com/2016/10/08/git-ssh-proxy/</id>
+    <published>2016-10-08T04:05:32.000Z</published>
+    <updated>2016-10-08T04:12:36.508Z</updated>
+    
+    <content type="html"><![CDATA[<p>Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。</p><p>在 <code>~/.ssh/config</code> 加入以下内容：  </p><p><strong>HTTP 代理</strong></p><pre><code>Host github.comProxyCommand /bin/connect.exe -H 127.0.0.1:1080 %h %p</code></pre><p><strong>Sock 代理</strong></p><pre><code>Host github.comProxyCommand /bin/connect.exe -S 127.0.0.1:1080 %h %p    </code></pre><p>上面两条将会对 Github 启用 <code>127.0.0.1:1080</code> 的代理。如果想对其他仓库使用代理只需替换 <code>github.com</code>  为对应的域名即可。<br>次方法对 Windows 同样适用。按照上面的格式将代理写入 <code>%HOMEPATH%\.ssh\config</code> 就可以了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Git 支持 HTTP(S) 和 SSH 两种加密连接形式。对 HTTP(S) 的代理只需要修改环境变量，代理设置将会对所有网站生效。而 SSH 代理则需要修改文件，只有访问指定域名时代理才会生效。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;~/.ssh/config&lt;/code&gt; 加
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 Windows 上编译 Vim</title>
+    <link href="http://yoursite.com/2016/10/08/build-vim-on-windows/"/>
+    <id>http://yoursite.com/2016/10/08/build-vim-on-windows/</id>
+    <published>2016-10-08T02:13:19.000Z</published>
+    <updated>2016-10-08T07:00:25.171Z</updated>
+    
+    <content type="html"><![CDATA[<p>官方编译：<a href="https://github.com/vim/vim-win32-installer/releases" target="_blank" rel="external">GitHub vim-win32-install</a> 如果觉得官方版开启的特性无法满足需求，那我们就需要自己编译 Vim 源码。</p><h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul><li>Visual Studio</li><li>Windows SDK</li><li>Vim 源代码（<a href="https://github.com/vim/vim/releases" target="_blank" rel="external">GitHub Release</a>）</li></ul><h2 id="非等宽字体支持"><a href="#非等宽字体支持" class="headerlink" title="非等宽字体支持"></a>非等宽字体支持</h2><p>进入源码目录下的 <code>src/</code> 目录，找到 <code>Make_mvc.mak</code> 文件并打开。在 <code>370</code> 行的 <code>CFLAGS=</code> 后添加参数 <code>-DFEAT_PROPORTIONAL_FONTS</code> 使编译出的 Vim 支持非等宽字体。添加后效果如下：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CFLAGS = -DFEAT_PROPORTIONAL_FONTS -c /W3 /nologo <span class="variable">$(CVARS)</span> -I. -Iproto -DHAVE_PATHDEF -DWIN32 \</div><div class="line">        $(CSCOPE_DEFS) $(NETBEANS_DEFS) $(CHANNEL_DEFS) \</div><div class="line">        $(NBDEBUG_DEFS) $(XPM_DEFS) \</div><div class="line">        $(DEFINES) -DWINVER=$(WINVER) -D_WIN32_WINNT=$(WINVER) \</div><div class="line">        /Fo$(OUTDIR)/</div></pre></td></tr></table></figure><p>当然也可以通过注释源码的方式实现支持非等宽，只是相对于修改 Makefile 修改源码较为麻烦。</p><h2 id="DirectWrite-抗锯齿"><a href="#DirectWrite-抗锯齿" class="headerlink" title="DirectWrite 抗锯齿"></a>DirectWrite 抗锯齿</h2><p>GVim 在 Win 下的字体渲染效果较差，没有 Mac 和 Linux 的 GVim 看起来平滑细腻。虽然 Win 下 GVim 支持 DW 抗锯齿，但默认并没有开启。要开启抗锯齿功能不仅需要在编译时增加参数，还需要在 vimrc 中设置。<br>按照 Makefile，编译时提供参数：</p><pre><code>DirectWrite=yes</code></pre><p>编译完成后打开 <code>_vimrc</code> 并添加：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if has(&apos;win32&apos;) || has(&apos;win64&apos;)</div><div class="line">    set renderoptions=type:directx,renmode:5</div><div class="line">end</div></pre></td></tr></table></figure><p>重启 Vim 后就可看到字体渲染效果显著提高。<br><strong>注：</strong>此方法会增加 vim 对显卡的需求，在当前屏幕的代码量非常大的时候可能会降低 vim 的翻页速度。</p><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>在 Vim 中输入命令 <code>:version</code> 就可以看到当前编译版包含的所有特性：加号为支持，减号为不支持。我们可以在编译打开对应的开关以支持某种功能或关闭开关减少编译得到的二进制文件的大小。</p><h3 id="FEATURES"><a href="#FEATURES" class="headerlink" title="FEATURES"></a>FEATURES</h3><p>除了单个功能的开关之外，Vim 还提供了 <code>FEATURES</code> 选项以快速开启或关闭某一组特性，可选：<code>TINY</code>（体积最小）、<code>SMALL</code>、<code>NORMAL</code>、<code>BIG</code>、<code>HUGE</code>（体积最大）。如果对空间没有特殊要求推荐选择 <code>HUGE</code>。</p><h3 id="脚本支持"><a href="#脚本支持" class="headerlink" title="脚本支持"></a>脚本支持</h3><p>Vim 提供的 VimScript 功能较为简单，运行速度也不快，所以许多插件开发者选择使用其它语言的脚本开发 Vim 插件。在使用这些插件的时候我们的 Vim 需要支持对应的脚本语言。在编译时传入解释器所在目录即可使 Vim 获得对对应语言的支持。DYNAMIC_LANGUAGE 则决定脚本语言模块于何时加载，如果设置为 <code>yes</code> 则只会在第一次运行脚本时加载语言模块，如果设置为 <code>no</code> 则在 Vim 启动时加载语言模块。</p><p>附上我使用的 Vim x64 编译参数（支持 python，python3，lua。需要提前安装好对应环境并修改参数中的目录）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmake -f Make_mvc.mak CPU=AMD64 SDK_INCLUDE_DIR=&quot;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include&quot; FEATURES=HUGE GUI=yes DIRECTX=yes OLE=yes MBYTE=yes IME=yes GIME=yes LUA=F:\lua LUA_VER=53 PYTHON=E:\DeveloperTools\Python27 PYTHON_VER=27 PYTHON3=E:\DeveloperTools\Python35 PYTHON3_VER=35 DYNAMIC_PYTHON=yes DYNAMIC_PYTHON3=yes DEBUG=no DYNAMIC_LUA=yes XPM=no</div></pre></td></tr></table></figure><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul><li>需要 <code>+Python</code> 特性时，不要使用 Python 2.7.11。此版本会导致 Vim 无法加载 site-packages 导致所有需要 Python 的插件失效。</li><li>使用 Visual Studio 编译 GVim 并添加 <code>+lua</code> 支持时，如果 lua 是从 <a href="http://luabinaries.luaforge.net/" target="_blank" rel="external">LuaForge Lua Binaries project</a> 下载的动态库，需要在 lua 根目录下创建 <code>include</code> 文件夹并将 <code>lua&lt;version&gt;.lib</code> 文件移动到 <code>include</code> 中。否则连接时会提示找不到 lib 文件。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;官方编译：&lt;a href=&quot;https://github.com/vim/vim-win32-installer/releases&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub vim-win32-install&lt;/a&gt; 如果觉得官方版开启的
+      
+    
+    </summary>
+    
+    
+      <category term="Vim" scheme="http://yoursite.com/tags/Vim/"/>
+    
+  </entry>
+  
+</feed>
